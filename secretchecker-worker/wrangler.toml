@@ -1,0 +1,12 @@
+name = "secretchecker"
+main = "src/index.js"
+compatibility_date = "2025-08-30"
+
+# Serve at your custom domain
+routes = [
+  { pattern = "secretchecker.ciancode.com/*", zone_name = "ciancode.com" },
+]
+
+[assets]
+directory = "../secretchecker-frontend/build"
+binding = "ASSETS"
