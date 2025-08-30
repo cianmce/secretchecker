@@ -7,6 +7,7 @@ function App() {
 
   const configuredApiBase = (import.meta.env.VITE_API_BASE || "").trim();
   const API_BASE = configuredApiBase.replace(/\/+$/, "");
+  const year = new Date().getFullYear();
 
   async function checkSecret(e) {
     e.preventDefault();
@@ -97,7 +98,7 @@ function App() {
         </div>
 
         <footer className="mt-10 text-sm text-center text-slate-400">
-          Built with React + Tailwind CSS
+          © {year} ciancode.com
         </footer>
       </div>
     </div>
