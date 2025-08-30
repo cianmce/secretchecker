@@ -5,13 +5,15 @@ function App() {
   const [result, setResult] = useState(null);
   const [loading, setLoading] = useState(false);
 
+  const API_BASE = process.env.REACT_APP_API_BASE || "";
+
   async function checkSecret(e) {
     e.preventDefault();
     setResult(null);
     setLoading(true);
 
     try {
-      const res = await fetch("/check_secret.json", {
+      const res = await fetch(`${API_BASE}/check_secret.json`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ secret_prefix: prefix }),

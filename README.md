@@ -1,70 +1,92 @@
-# Getting Started with Create React App
+# SecretChecker
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A tiny app to experiment with Cloudflare Workers, a simple UI, and Worker secrets.
 
-## Available Scripts
+- Frontend: React + Tailwind CSS (single page)
+- Backend: Cloudflare Worker serving static assets and an API route
+- Secret storage: Cloudflare Worker secret `application_secret`
 
-In the project directory, you can run:
+## Live
 
-### `npm start`
+App is live at: [secretchecker.ciancode.com](https://secretchecker.ciancode.com/)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## What it does
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- The UI lets you enter a 4-character `secret_prefix`.
+- The Worker exposes `POST /check_secret.json` that compares the prefix against a secure secret named `application_secret`.
+  - If the secret starts with the provided prefix, it returns the full secret.
+  - Otherwise it returns a 400 with an error.
 
-### `npm test`
+### API
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- Endpoint: `POST /check_secret.json`
+- Request body:
 
-### `npm run build`
+```json
+{ "secret_prefix": "abcd" }
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- Responses:
+  - 200 OK
+    ```json
+    { "secret": "the_full_secret_value" }
+    ```
+  - 400 Bad Request (invalid format or incorrect prefix)
+    ```json
+    { "error": "Invalid prefix format" }
+    ```
+    or
+    ```json
+    { "error": "Incorrect prefix" }
+    ```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Local development
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Two processes (frontend dev server + Worker), with automatic UI hot reload proxied via the Worker.
 
-### `npm run eject`
+1. Frontend
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+```
+cd secretchecker-frontend
+npm install
+npm start
+```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+2. Worker (local)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+```
+cd secretchecker-worker
+# Provide a local secret for the Worker
+# Create .dev.vars in this directory with:
+# application_secret=YOUR_LOCAL_TEST_SECRET
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+npm run dev
+```
 
-## Learn More
+- Open http://localhost:8787/ to use the app.
+- `POST /check_secret.json` is handled by the Worker locally.
+- The Worker proxies UI requests to the CRA dev server for instant HMR.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Deploy
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```
+cd secretchecker-worker
+# Set the production secret once (paste the value when prompted)
+wrangler secret put application_secret
 
-### Code Splitting
+# Build the frontend and deploy the Worker
+npm run ci-cd-build
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+Routing and static assets are configured via `wrangler.toml`:
 
-### Analyzing the Bundle Size
+- Assets binding serves `secretchecker-frontend/build` as the site.
+- Custom domain route: `secretchecker.ciancode.com/*` (Cloudflare-managed DNS).
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## Tech highlights
 
-### Making a Progressive Web App
+- Cloudflare Workers as the API and static hosting layer
+- React + Tailwind CSS for a small, modern UI
+- Cloudflare Worker secrets to keep `application_secret` off the client
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+This project was mainly built as an exercise to use Cloudflare Workers, a simple UI, and secrets end-to-end.

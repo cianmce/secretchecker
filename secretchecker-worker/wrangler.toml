@@ -1,16 +1,8 @@
-name = "secretchecker"
+name = "secretchecker-api"
 main = "src/index.js"
 compatibility_date = "2025-08-30"
 
-# Serve at your custom domain
+# Serve API at separate subdomain
 routes = [
-  { pattern = "secretchecker.ciancode.com/*", zone_name = "ciancode.com" },
+  { pattern = "secretchecker-api.ciancode.com/*", zone_name = "ciancode.com" },
 ]
-
-[assets]
-directory = "../secretchecker-frontend/build"
-binding = "ASSETS"
-
-[vars]
-# When set in local dev, the worker will proxy UI to CRA dev server enabling HMR
-FRONTEND_DEV_SERVER = "http://localhost:3000"
