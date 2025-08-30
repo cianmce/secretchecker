@@ -11,6 +11,9 @@ A tiny app to experiment with Cloudflare Workers (API), Cloudflare Pages (UI), a
 - UI: https://secretchecker.ciancode.com/
 - API: https://secretchecker-api.ciancode.com/check_secret.json
 
+\
+[<img alt="Secretchecker" src="secretchecker-frontend/public/abc_grey.png" width="320" />](https://secretchecker.ciancode.com/)
+
 ## What it does
 
 - The UI lets you enter a 2-character `secret_prefix`.
