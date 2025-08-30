@@ -4,7 +4,7 @@
   "scripts": {
     "build-frontend": "cd ../secretchecker-frontend && npm install && npm run build",
     "dev": "wrangler dev --local",
-    "deploy": "wrangler publish",
+    "deploy": "wrangler deploy",
     "ci-cd-build": "npm run build-frontend && npm run deploy"
   },
   "dependencies": {

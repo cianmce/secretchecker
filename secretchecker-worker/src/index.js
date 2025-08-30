@@ -1,5 +1,3 @@
-// Static assets are served via the Wrangler Assets binding (env.ASSETS)
-
 export default {
   async fetch(request, env, ctx) {
     const url = new URL(request.url);
