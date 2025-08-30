@@ -70,6 +70,12 @@ export default {
       }
     }
 
-    return new Response("Not found", { status: 404, headers: buildCorsHeaders(origin) });
+    return new Response(
+      JSON.stringify({ error: "not_found" }),
+      {
+        status: 404,
+        headers: { "Content-Type": "application/json", ...buildCorsHeaders(origin) },
+      }
+    );
   },
 };
