@@ -13,7 +13,7 @@ A tiny app to experiment with Cloudflare Workers (API), Cloudflare Pages (UI), a
 
 ## What it does
 
-- The UI lets you enter a 4-character `secret_prefix`.
+- The UI lets you enter a 2-character `secret_prefix`.
 - The Worker exposes `POST /check_secret.json` that compares the prefix against a secure secret named `application_secret`.
   - If the secret starts with the provided prefix, it returns the full secret.
   - Otherwise it returns a 400 with an error.
@@ -24,7 +24,7 @@ A tiny app to experiment with Cloudflare Workers (API), Cloudflare Pages (UI), a
 - Request body:
 
 ```json
-{ "secret_prefix": "abcd" }
+{ "secret_prefix": "ab" }
 ```
 
 - Responses:

@@ -48,16 +48,16 @@ function App() {
           <form onSubmit={checkSecret} className="space-y-6">
             <div>
               <label htmlFor="prefix" className="block mb-2 text-sm font-medium text-slate-300">
-                Secret prefix
+                Secret prefix (2 characters)
               </label>
               <div className="flex gap-3 items-center">
                 <input
                   id="prefix"
                   type="text"
                   value={prefix}
-                  onChange={(e) => setPrefix(e.target.value.slice(0, 4))}
-                  placeholder="e.g. aBcd"
-                  maxLength={4}
+                  onChange={(e) => setPrefix(e.target.value.slice(0, 2))}
+                  placeholder="e.g. aB"
+                  maxLength={2}
                   autoCapitalize="off"
                   autoCorrect="off"
                   spellCheck={false}
@@ -65,7 +65,7 @@ function App() {
                 />
                 <button
                   type="submit"
-                  disabled={loading || prefix.length !== 4}
+                  disabled={loading || prefix.length !== 2}
                   className="inline-flex justify-center items-center px-5 py-3 font-medium text-white bg-emerald-500 rounded-xl shadow transition-colors hover:bg-emerald-400 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {loading ? (
@@ -81,7 +81,7 @@ function App() {
                   )}
                 </button>
               </div>
-              <p className="mt-2 text-xs text-slate-400">Prefix must be exactly 4 characters.</p>
+              <p className="mt-2 text-xs text-slate-400">Prefix must be exactly 2 characters.</p>
             </div>
           </form>
 
@@ -98,7 +98,7 @@ function App() {
         </div>
 
         <footer className="mt-10 text-sm text-center text-slate-400">
-          © {year} ciancode.com
+          ciancode.com © {year}
         </footer>
       </div>
     </div>

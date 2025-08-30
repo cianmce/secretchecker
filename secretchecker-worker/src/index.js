@@ -29,7 +29,7 @@ export default {
         const body = await request.json();
         const prefix = body.secret_prefix || "";
 
-        if (typeof prefix !== "string" || prefix.length !== 4) {
+        if (typeof prefix !== "string" || prefix.length !== 2) {
           return new Response(
             JSON.stringify({ error: "Invalid prefix format" }),
             {
