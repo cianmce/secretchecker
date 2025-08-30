@@ -2,6 +2,7 @@ function buildCorsHeaders(origin) {
   const allowedOrigins = [
     "https://secretchecker.ciancode.com",
     "http://localhost:3000",
+    "http://localhost:5173",
   ];
   const allowOrigin = allowedOrigins.includes(origin) ? origin : "";
   const base = {

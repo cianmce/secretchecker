@@ -5,7 +5,8 @@ function App() {
   const [result, setResult] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  const API_BASE = process.env.REACT_APP_API_BASE || "";
+  const configuredApiBase = (import.meta.env.VITE_API_BASE || "").trim();
+  const API_BASE = configuredApiBase.replace(/\/+$/, "");
 
   async function checkSecret(e) {
     e.preventDefault();
