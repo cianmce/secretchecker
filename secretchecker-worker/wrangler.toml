@@ -10,3 +10,7 @@ routes = [
 [assets]
 directory = "../secretchecker-frontend/build"
 binding = "ASSETS"
+
+[vars]
+# When set in local dev, the worker will proxy UI to CRA dev server enabling HMR
+FRONTEND_DEV_SERVER = "http://localhost:3000"

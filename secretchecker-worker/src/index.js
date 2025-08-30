@@ -41,6 +41,15 @@ export default {
 
     // otherwise serve static React app (SPA-friendly)
     try {
+      // In local dev, proxy to CRA dev server for instant HMR
+      if (env.FRONTEND_DEV_SERVER) {
+        const base = new URL(env.FRONTEND_DEV_SERVER);
+        const incoming = new URL(request.url);
+        const proxied = new URL(incoming.pathname + incoming.search, base);
+        // Let CRA handle HTML fallback/routes
+        return await fetch(new Request(proxied.toString(), request));
+      }
+
       const assetResponse = await env.ASSETS.fetch(request);
       if (assetResponse.status !== 404) {
         return assetResponse;
