@@ -114,14 +114,6 @@ wrangler deploy
   - Proxy: ON
 - API (Worker): the Worker route binds `secretchecker-api.ciancode.com/*`. If Cloudflare requires a DNS record, add a proxied placeholder (e.g., A 192.0.2.1) or a CNAME; keep Proxy ON.
 
-## Notes after migrating to Vite
-
-- Build output changed from CRA’s `build/` to Vite’s `dist/`.
-- Pages must be configured to use `dist` (see settings above).
-- Environment variables changed from `REACT_APP_*` to `VITE_*`. The UI reads `import.meta.env.VITE_API_BASE`.
-- Local UI dev server runs at `http://localhost:5173`.
-- The Worker is now API-only with CORS allowing `https://secretchecker.ciancode.com`, `http://localhost:3000`, and `http://localhost:5173`.
-
 ## Tech highlights
 
 - Cloudflare Workers for a simple, secure API
