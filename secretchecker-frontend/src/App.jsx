@@ -41,7 +41,7 @@ function App() {
       <div className="px-6 py-16 mx-auto max-w-2xl">
         <header className="mb-10 text-center">
           <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl">Secret Checker</h1>
-          <p className="mt-3 text-slate-300">Enter a 4-character prefix to verify against the secure secret.</p>
+          <p className="mt-3 text-slate-300">Enter a 2-character prefix to verify against the secure secret.</p>
         </header>
 
         <div className="p-6 rounded-2xl border shadow-xl backdrop-blur bg-white/5 border-white/10 sm:p-8">
