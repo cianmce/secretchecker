@@ -117,7 +117,7 @@ wrangler deploy
 ## Tech highlights
 
 - Cloudflare Workers for a simple, secure API
-- Cloudflare Pages for fast static hosting and CI
-- React 19 + Vite + Tailwind for a modern UI stack
+- Cloudflare Pages for static hosting React frontend application
+- React 19 + Vite + Tailwind
 
 This app was mainly built as an exercise to use Cloudflare Workers, a small UI, and secrets end-to-end.
